@@ -199,6 +199,7 @@
       <workItem from="1572018941687" duration="307000" />
       <workItem from="1573122824071" duration="4901000" />
       <workItem from="1574239336106" duration="959000" />
+      <workItem from="1574449847727" duration="24000" />
     </task>
     <servers />
   </component>
@@ -218,11 +219,6 @@
           <url>file://$PROJECT_DIR$/resources/views/posts/edit.blade.php</url>
           <line>15</line>
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/routes/web.php</url>
-          <line>28</line>
-          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

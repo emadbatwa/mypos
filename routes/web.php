@@ -28,14 +28,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-//Route::get('/', 'PagesControllers@index');
+Route::get('/', 'PagesControllers@index');
 //Route::get('/', 'CommentController@index');
 
-Route::get('/', function () {
-    $command = escapeshellcmd('test.py');
-    $output = shell_exec($command);
-    dd($output);
-});
+
 
 Route::get('/about', 'PagesControllers@about');
 Route::get('/services', 'PagesControllers@services');
