@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use GuzzleHttp;
 use Illuminate\Support\Facades\Input;
 use App\Post;
+use App\Movie;
 
 
 class movieController extends Controller
@@ -20,7 +21,10 @@ class movieController extends Controller
         $name = Input::get('name');
 
         $dataReturned = $this->movie($name);
-        return view('info')->with('dataReturned',$dataReturned);
+       //return $dataReturned;
+        //return view('info',['dataReturned' => $dataReturned]);
+      return view('info')->with('dataReturned',$dataReturned);
+       // dd($dataReturned);
 
 
     }
@@ -30,7 +34,7 @@ class movieController extends Controller
 
 
         $client = new GuzzleHttp\Client();
-        $data = $client->get('http://www.omdbapi.com/?t='.$nameOfSearch.'&apikey=726b7d83');
+        $data = $client->get('http://www.omdbapi.com/?s='.$nameOfSearch.'&apikey=726b7d83');
         $data = json_decode($data->getBody(), true);
 //        $data = array('Title' => $data['Title'],
 //            'Year' => $data['Year'],
@@ -54,5 +58,13 @@ class movieController extends Controller
         $post->cover_image = $fileNameToStore;
         $post->save();
         return redirect('posts')->with('success','Post Created ');
+    }
+    public function save(Request $request) {
+        $Movie = new Movie();
+        $Movie->title = 'test';
+        $Movie->poster = 'poster test';
+        $Movie->imdbID = $request->input('imdbid');
+        $Movie->save();
+        return redirect()->back()->with('success','Movie Add To MY List ');
     }
 }

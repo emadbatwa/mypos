@@ -22,3 +22,10 @@ Route::get("/","YoutubeController@index");
 Route::get('/movie','YoutubeController@movie');
 
 
+////////////////
+
+Route::get('/', 'CommentController@index');
+
+    Route::get('/comments', 'CommentController@fetchComments');
+    Route::post('/comments', 'CommentController@store');
+

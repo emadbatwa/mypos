@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ProjectCreated;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use App\Post;
 use DB;
+use PHPUnit\Util\Filesystem;
 
 
 class PostController extends Controller
@@ -28,6 +31,7 @@ class PostController extends Controller
         //$post = Post::where('title','Post Tow')->get();
         //return $post;
          $posts = Post::orderBy('created_at','desc')->paginate(10);
+       //  dump($posts);
 
         return view('posts.index')->with('posts',$posts);
     }
@@ -80,6 +84,9 @@ class PostController extends Controller
         $post->user_id = auth()->user()->id;
         $post->cover_image = $fileNameToStore;
         $post->save();
+        Mail::to(auth()->user()->email)->send(
+            new ProjectCreated()
+        );
         return redirect('posts')->with('success','Post Created ');
 
 
@@ -93,6 +100,8 @@ class PostController extends Controller
      */
     public function show($id)
     {
+
+        //dd($filesystem);
         $posts = Post::find($id);
         return view('posts.show')->with('posts',$posts);
 
@@ -107,7 +116,7 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
         if(auth()->user()->id != $post->user_id){
             return redirect('/posts')->with('error','Unautorize page');
         }

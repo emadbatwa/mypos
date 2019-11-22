@@ -1,4 +1,9 @@
 window._ = require('lodash');
+window.moment = require('moment');
+window.Pusher = require('pusher-js');
+
+
+
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -22,6 +27,10 @@ try {
 window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+window.axios.defaults.headers.common.crossDomain = true;
+window.axios.defaults.baseURL = '/api';
+
 
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
@@ -37,6 +46,9 @@ if (token) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
+
+
+
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
@@ -47,9 +59,9 @@ if (token) {
 
 // window.Pusher = require('pusher-js');
 
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: process.env.MIX_PUSHER_APP_KEY,
-//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-//     encrypted: true
-// });
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: process.env.MIX_PUSHER_APP_KEY,
+    cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+    encrypted: false
+});

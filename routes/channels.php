@@ -14,3 +14,8 @@
 Broadcast::channel('App.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
+
+//live_comments/routes/channels.php
+Broadcast::channel('comment-channel', function () {
+    return true;
+});
